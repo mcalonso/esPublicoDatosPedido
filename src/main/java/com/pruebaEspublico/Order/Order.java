@@ -1,36 +1,27 @@
-package com.pruebaEspublico.datosPedido;
+package com.pruebaEspublico.Order;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("PEDIDOS")
-public class Pedido {
+@Table("ORDERS")
+public class Order {
 	
-	@Id
-	private Integer id;
 	private String region;
 	private String country;
 	private String itemType;
 	private String salesChannel;
 	private String orderPriority;
 	private Date orderDate;
-	private int orderID;
+	private Integer orderID;
 	private Date shipDate;
 	private int unitsSold;
-	private float unitPrice;
-	private float unitCost;
-	private float totalRevenue;
-	private float totalCost;
-	private float totalProfit;
+	private double unitPrice;
+	private double unitCost;
+	private double totalRevenue;
+	private double totalCost;
+	private double totalProfit;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getRegion() {
 		return region;
 	}
@@ -85,40 +76,40 @@ public class Pedido {
 	public void setUnitsSold(int unitsSold) {
 		this.unitsSold = unitsSold;
 	}
-	public float getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
-	public void setUnitPrice(float unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public float getUnitCost() {
+	public double getUnitCost() {
 		return unitCost;
 	}
-	public void setUnitCost(float unitCost) {
+	public void setUnitCost(double unitCost) {
 		this.unitCost = unitCost;
 	}
-	public float getTotalRevenue() {
+	public double getTotalRevenue() {
 		return totalRevenue;
 	}
-	public void setTotalRevenue(float totalRevenue) {
+	public void setTotalRevenue(double totalRevenue) {
 		this.totalRevenue = totalRevenue;
 	}
-	public float getTotalCost() {
+	public double getTotalCost() {
 		return totalCost;
 	}
-	public void setTotalCost(float totalCost) {
+	public void setTotalCost(double totalCost) {
 		this.totalCost = totalCost;
 	}
-	public float getTotalProfit() {
+	public double getTotalProfit() {
 		return totalProfit;
 	}
-	public void setTotalProfit(float totalProfit) {
+	public void setTotalProfit(double totalProfit) {
 		this.totalProfit = totalProfit;
 	}
 	
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", region=" + region + ", country=" + country + ", itemType=" + itemType
+		return "Order [region=" + region + ", country=" + country + ", itemType=" + itemType
 				+ ", salesChannel=" + salesChannel + ", orderPriority=" + orderPriority + ", orderDate=" + orderDate
 				+ ", orderID=" + orderID + ", shipDate=" + shipDate + ", unitsSold=" + unitsSold + ", unitPrice="
 				+ unitPrice + ", unitCost=" + unitCost + ", totalRevenue=" + totalRevenue + ", totalCost=" + totalCost

@@ -1,36 +1,50 @@
 package com.pruebaEspublico.datosPedido;
 
-import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.event.EventListener;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
-import org.springframework.stereotype.Component;
 
-import com.pruebaEspublico.DAOs.PedidoDAO;
+import com.pruebaEspublico.Order.OrderController;
+
+
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.pruebaEspublico"})
 @EnableJdbcRepositories("com.pruebaEspublico")
-public class DatosPedidoApplication {
+public class DatosPedidoApplication implements CommandLineRunner {
 	
 	@Autowired
-	private PedidoDAO pedidoDAO;
+	private OrderController orderController;
+	
+	private static Logger LOG = LoggerFactory.getLogger(DatosPedidoApplication.class);
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DatosPedidoApplication.class, args);
 	}
 
-	@EventListener({ApplicationReadyEvent.class})
-	public void pruebaCrud() {
-		//Test para comprobar la base de datos
-		List<Pedido> pedidos = pedidoDAO.findAll();
-		pedidos.forEach(System.out :: println);
-		
+	@Override
+	public void run(String... args) throws Exception {
+		LOG.info("Uploading order list...");
+		String result = orderController.treatmentCSVDocument(args[0]);
+		LOG.info(result);
+		Map<String, Map<String, String>> summary = orderController.getOrderSummary();
+		if(summary != null) {
+			LOG.info("Summary of orders by params");
+			summary.forEach((k,v)->{
+				System.out.println("-------------------");
+				System.out.println(k);
+				System.out.println("-------------------");
+				v.forEach((x,y)->{
+					System.out.println(x + ":" + y);
+		        });
+			});	
+		}
 	}
-
 }
